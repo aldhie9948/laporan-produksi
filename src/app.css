@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  @apply scroll-smooth;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  @apply bg-gray-800 text-gray-200 text-sm relative;
+}
+
+input,
+select,
+textarea {
+  @apply outline-none bg-transparent;
+}
+
+.btn {
+  @apply flex gap-2 items-center bg-red-500 rounded px-4 py-1.5 duration-200 enabled:hover:bg-red-600 enabled:active:bg-red-500 enabled:active:ring-4 enabled:active:ring-red-400;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply bg-slate-100;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+@media print {
+  body {
+    @apply bg-white text-black m-0 p-0 text-base;
+  }
+  main {
+    @apply !block !h-fit;
+  }
+  table {
+    page-break-inside: auto;
+  }
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+  tr,
+  th,
+  td {
+    @apply !border-black;
+  }
+  .hidden-print {
+    @apply hidden;
+  }
+
+  .part,
+  .operator {
+    @apply max-w-[15rem] !whitespace-normal;
+  }
+}
