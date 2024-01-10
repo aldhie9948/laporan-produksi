@@ -7,6 +7,8 @@
   import { getReport } from "../services";
   import { selectedPlan } from "../store";
   import type { PlanReport, SelectItem } from "../types";
+  import Loadiang from "./loading.svelte";
+  import Loading from "./loading.svelte";
   let reports: PlanReport[] = [];
   let reportSample: PlanReport;
   let isDown: boolean = false;
@@ -14,6 +16,8 @@
   let scrollLeft: number;
   let parentTable: HTMLElement;
   let reportTable: HTMLTableElement;
+  export let planId: string;
+  let loading: boolean = true;
 
   function utcToDate(dateString: string | undefined | null, format?: string) {
     if (!format) format = "DD/MM/YYYY";
@@ -21,10 +25,16 @@
     return moment.utc(dateString).locale("id").format(format);
   }
 
-  async function init(plan: SelectItem) {
-    if (!plan) return;
-    reports = await getReport(plan.value);
-    if (reports.length > 0) reportSample = reports[0];
+  async function init(plan: string) {
+    try {
+      loading = true;
+      if (!plan) return;
+      reports = await getReport(plan);
+      if (reports.length > 0) reportSample = reports[0];
+      loading = false;
+    } catch (error) {
+      loading = false;
+    }
   }
 
   function onMouseDown(e: MouseEvent) {
@@ -59,11 +69,13 @@
   }
 
   onMount(async () => {
-    init($selectedPlan);
+    init(planId);
   });
 
-  $: $selectedPlan, init($selectedPlan);
+  $: init(planId);
 </script>
+
+<Loading show={loading} />
 
 <div class="p-5 w-full" transition:slide>
   <div class="text-center uppercase lg:text-3xl text-lg font-bold">

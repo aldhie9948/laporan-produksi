@@ -1,7 +1,5 @@
 import axios, { AxiosError } from "axios";
-const baseUrl = import.meta.env.DEV
-  ? "http://127.0.0.1:3005/api/laporan-produksi"
-  : "http://192.168.10.19:3005/api/laporan-produksi";
+const baseUrl = import.meta.env.VITE_ENDPOINT;
 
 function axiosErrorHandler(error: unknown): string {
   let message = "";

@@ -4,7 +4,8 @@
   import Header from "./lib/components/header.svelte";
   import ReportTable from "./lib/components/report-table.svelte";
   import SearchBar from "./lib/components/search-bar.svelte";
-  import { selectedPlan } from "./lib/store";
+  import { Route, Router } from "svelte-routing";
+  let basepath = import.meta.env.VITE_BASEPATH;
 </script>
 
 <svelte:head>
@@ -13,8 +14,12 @@
 <main class="flex flex-col items-center justify-center min-h-screen pb-10">
   <Header />
   <SearchBar />
-  {#if $selectedPlan}
-    <ReportTable />
-  {/if}
+
+  <Router {basepath}>
+    <Route path="/:planId" let:params>
+      <ReportTable planId={params.planId} />
+    </Route>
+  </Router>
+
   <Footer />
 </main>

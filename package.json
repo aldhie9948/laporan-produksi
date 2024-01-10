@@ -27,6 +27,7 @@
     "axios": "^1.5.1",
     "excellentexport": "^3.9.6",
     "moment": "^2.29.4",
+    "svelte-routing": "^2.11.0",
     "svelte-select": "^5.7.0"
   }
 }
